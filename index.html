@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Shop Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <nav class="bg-black text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                <svg class="w-6 h-6 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12.525.02c1.31-.02 2.61-.01 3.91.04.08 1.53.66 3.09 1.5 4.38 1.25 1.94 3.4 3.22 5.82 3.22v3.75c-1.47-.04-2.91-.42-4.17-1.12-.22-.12-.43-.25-.64-.39v6.52c0 4.14-3.36 7.5-7.5 7.5-4.14 0-7.5-3.36-7.5-7.5 0-4.14 3.36-7.5 7.5-7.5 1.13 0 2.22.25 3.2.7v3.9c-.98-.54-2.12-.85-3.32-.85-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5c1.8 0 3.28-1.36 3.47-3.11V.02z" />
+                </svg>
+                TikTok Shop Analytics
+            </h1>
+            <div class="flex items-center gap-4">
+                <span class="text-sm bg-green-500 text-white px-3 py-1 rounded-full animate-pulse">Live</span>
+                <button id="themeToggle" class="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition">
+                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-6">
+
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+            <div>
+                <h2 class="text-2xl font-bold">Dashboard Analitik</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Periode: Hari Ini</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold">Total Pesanan</h3>
+                <p class="text-3xl font-bold mt-2" id="totalOrders">0</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold">Pendapatan Kotor Penjualan</h3>
+                <p class="text-3xl font-bold mt-2 text-blue-500" id="totalRevenue">Rp 0</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold">Estimasi Laba Bersih</h3>
+                <p class="text-3xl font-bold mt-2 text-green-500" id="netProfit">Rp 0</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+            <div
+                class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 lg:col-span-1 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-xl font-bold mb-4 border-b pb-2 dark:border-gray-700">Laporan Laba/Rugi</h2>
+
+                    <div class="space-y-3 mt-4 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500 dark:text-gray-400">Total Penjualan</span>
+                            <span class="font-semibold text-blue-500" id="finRevenue">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500 dark:text-gray-400">HPP (Modal Barang) - Est 40%</span>
+                            <span class="font-semibold text-red-400" id="finHpp">- Rp 0</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500 dark:text-gray-400">Biaya Admin TikTok - Est 8%</span>
+                            <span class="font-semibold text-red-400" id="finFee">- Rp 0</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500 dark:text-gray-400">Biaya Operasional - Est 5%</span>
+                            <span class="font-semibold text-red-400" id="finOps">- Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-dashed dark:border-gray-700 mt-4 pt-4">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-lg">Laba Bersih</span>
+                        <span class="font-bold text-xl text-green-500" id="finNet">Rp 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 lg:col-span-2">
+                <h2 class="text-xl font-bold mb-4">Grafik Penjualan per Produk</h2>
+                <div class="relative h-64 w-full">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <div
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                <h2 class="text-xl font-bold">Riwayat Transaksi</h2>
+                <button
+                    class="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">Cetak
+                    Laporan</button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-400 text-sm">
+                            <th class="p-4 border-b dark:border-gray-700">ID Ref (cp)</th>
+                            <th class="p-4 border-b dark:border-gray-700">Produk</th>
+                            <th class="p-4 border-b dark:border-gray-700">Harga Jual</th>
+                            <th class="p-4 border-b dark:border-gray-700">Laba (Est)</th>
+                            <th class="p-4 border-b dark:border-gray-700">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        themeToggleBtn.addEventListener('click', () => htmlElement.classList.toggle('dark'));
+
+        // Variabel Keuangan
+        let metrics = {
+            orders: 0,
+            revenue: 0,
+            hpp: 0,       // Modal Barang
+            adminFee: 0,  // Potongan TikTok
+            opsFee: 0,    // Biaya Operasional (Lakban, bubble wrap, dll)
+            netProfit: 0
+        };
+
+        const orderTableBody = document.getElementById('orderTableBody');
+        const formatRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+
+        // Chart.js Setup
+        Chart.defaults.color = '#9ca3af';
+        const productSalesCount = { "Skincare": 0, "Kaos": 0, "Lampu LED": 0, "Botol Air": 0 };
+        const mockProducts = Object.keys(productSalesCount);
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: mockProducts,
+                datasets: [{
+                    label: 'Terjual',
+                    data: Object.values(productSalesCount),
+                    backgroundColor: 'rgba(236, 72, 153, 0.8)',
+                    borderRadius: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+
+        // Update UI Laporan Keuangan
+        function updateFinancialReport() {
+            document.getElementById('totalOrders').innerText = metrics.orders;
+            document.getElementById('totalRevenue').innerText = formatRupiah(metrics.revenue);
+            document.getElementById('netProfit').innerText = formatRupiah(metrics.netProfit);
+
+            document.getElementById('finRevenue').innerText = formatRupiah(metrics.revenue);
+            document.getElementById('finHpp').innerText = `- ${formatRupiah(metrics.hpp)}`;
+            document.getElementById('finFee').innerText = `- ${formatRupiah(metrics.adminFee)}`;
+            document.getElementById('finOps').innerText = `- ${formatRupiah(metrics.opsFee)}`;
+            document.getElementById('finNet').innerText = formatRupiah(metrics.netProfit);
+        }
+
+        function addOrder(order) {
+            // Kalkulasi Keuangan (Simulasi)
+            const orderHpp = order.amount * 0.40; // Anggap modal barang 40% dari harga jual
+            const orderFee = order.amount * 0.08; // Admin TikTok 8%
+            const orderOps = order.amount * 0.05; // Operasional 5%
+            const orderNet = order.amount - orderHpp - orderFee - orderOps;
+
+            // Update Metrik Global
+            metrics.orders++;
+            metrics.revenue += order.amount;
+            metrics.hpp += orderHpp;
+            metrics.adminFee += orderFee;
+            metrics.opsFee += orderOps;
+            metrics.netProfit += orderNet;
+
+            updateFinancialReport();
+
+            // Update Tabel (Menggunakan 'cp' sebagai reference ID transaksi)
+            const row = document.createElement('tr');
+            row.className = 'border-b dark:border-gray-700 animate-fade-in hover:bg-gray-50 dark:hover:bg-gray-800';
+            row.innerHTML = `
+                <td class="p-4 font-mono text-xs text-gray-500">CP-${order.cp}</td>
+                <td class="p-4 font-medium">${order.productName}</td>
+                <td class="p-4">${formatRupiah(order.amount)}</td>
+                <td class="p-4 font-semibold text-green-500">+${formatRupiah(orderNet)}</td>
+                <td class="p-4"><span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Selesai</span></td>
+            `;
+            orderTableBody.insertBefore(row, orderTableBody.firstChild);
+
+            // Update Grafik
+            productSalesCount[order.productName]++;
+            salesChart.data.datasets[0].data = Object.values(productSalesCount);
+            salesChart.update();
+        }
+
+        // Simulasi Order Masuk
+        setInterval(() => {
+            if (Math.random() > 0.5) {
+                const newOrder = {
+                    cp: Math.floor(100000 + Math.random() * 900000), // Identifier transaksi
+                    productName: mockProducts[Math.floor(Math.random() * mockProducts.length)],
+                    amount: Math.floor(50000 + Math.random() * 150000)
+                };
+                addOrder(newOrder);
+            }
+        }, 3000); 
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                background-color: rgba(59, 130, 246, 0.2);
+            }
+
+            100% {
+                opacity: 1;
+                background-color: transparent;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+    </style>
+</body>
+
+</html>
