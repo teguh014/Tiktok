@@ -4,159 +4,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Shop Analytics</title>
+    <title>TikTok Shop Analytics Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tiktok: { pink: '#FE2C55', cyan: '#25F4EE', dark: '#121212' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300">
+<body
+    class="bg-slate-50 dark:bg-tiktok-dark font-sans text-slate-800 dark:text-slate-200 transition-colors duration-300 antialiased overflow-hidden flex h-screen">
 
-    <nav class="bg-black text-white p-4 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold flex items-center gap-2">
-                <svg class="w-6 h-6 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+    <!-- Sidebar (Modern layout) -->
+    <aside
+        class="w-64 bg-white dark:bg-gray-900 border-r border-slate-200 dark:border-gray-800 hidden md:flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-10">
+        <div class="p-6 flex items-center gap-3">
+            <div
+                class="w-8 h-8 rounded-lg bg-gradient-to-br from-tiktok-pink to-tiktok-cyan flex items-center justify-center shadow-lg shadow-tiktok-pink/30">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M12.525.02c1.31-.02 2.61-.01 3.91.04.08 1.53.66 3.09 1.5 4.38 1.25 1.94 3.4 3.22 5.82 3.22v3.75c-1.47-.04-2.91-.42-4.17-1.12-.22-.12-.43-.25-.64-.39v6.52c0 4.14-3.36 7.5-7.5 7.5-4.14 0-7.5-3.36-7.5-7.5 0-4.14 3.36-7.5 7.5-7.5 1.13 0 2.22.25 3.2.7v3.9c-.98-.54-2.12-.85-3.32-.85-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5c1.8 0 3.28-1.36 3.47-3.11V.02z" />
                 </svg>
-                TikTok Shop Analytics
-            </h1>
+            </div>
+            <h1 class="text-lg font-bold tracking-tight">TK Shop <span class="text-tiktok-pink">Analytics</span></h1>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 bg-slate-100 dark:bg-gray-800 text-tiktok-pink dark:text-tiktok-cyan rounded-xl font-medium transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                    </path>
+                </svg>
+                Dashboard
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-800 dark:hover:text-white rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800/50 transition-all font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                </svg>
+                Orders
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-800 dark:hover:text-white rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800/50 transition-all font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                    </path>
+                </svg>
+                Keuangan
+            </a>
+        </nav>
+
+        <div class="p-6">
+            <div
+                class="bg-gradient-to-r from-tiktok-cyan/10 to-tiktok-pink/10 rounded-2xl p-4 border border-white/20 relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 w-16 h-16 bg-tiktok-pink/20 rounded-full blur-xl"></div>
+                <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-1">Status Webhook</h4>
+                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Terkoneksi Real-time
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main View Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+
+        <!-- Top Header -->
+        <header
+            class="h-20 px-8 flex items-center justify-between bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border-b border-slate-200 dark:border-gray-800 z-10">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-white tracking-tight">Overview</h2>
+                <p class="text-sm text-slate-500 font-medium">Update terakhir: <span id="clock"
+                        class="text-tiktok-pink">Loading...</span></p>
+            </div>
+
             <div class="flex items-center gap-4">
-                <span class="text-sm bg-green-500 text-white px-3 py-1 rounded-full animate-pulse">Live</span>
-                <button id="themeToggle" class="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition">
-                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="themeToggle"
+                    class="w-10 h-10 rounded-full bg-slate-100 dark:bg-gray-800 flex items-center justify-center text-slate-500 hover:text-tiktok-pink transition-colors border border-slate-200 dark:border-gray-700 shadow-sm">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
                         </path>
                     </svg>
+                    <svg class="w-5 h-5 hidden dark:block text-yellow-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
                 </button>
+                <div
+                    class="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-tiktok-pink shadow-md cursor-pointer border-2 border-white dark:border-gray-800">
+                </div>
             </div>
-        </div>
-    </nav>
+        </header>
 
-    <main class="container mx-auto p-6">
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-8 pb-20">
 
-        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-            <div>
-                <h2 class="text-2xl font-bold">Dashboard Analitik</h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Periode: Hari Ini</p>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold">Total Pesanan</h3>
-                <p class="text-3xl font-bold mt-2" id="totalOrders">0</p>
-            </div>
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold">Pendapatan Kotor Penjualan</h3>
-                <p class="text-3xl font-bold mt-2 text-blue-500" id="totalRevenue">Rp 0</p>
-            </div>
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 class="text-gray-500 dark:text-gray-400 text-sm font-semibold">Estimasi Laba Bersih</h3>
-                <p class="text-3xl font-bold mt-2 text-green-500" id="netProfit">Rp 0</p>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-
-            <div
-                class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 lg:col-span-1 flex flex-col justify-between">
-                <div>
-                    <h2 class="text-xl font-bold mb-4 border-b pb-2 dark:border-gray-700">Laporan Laba/Rugi</h2>
-
-                    <div class="space-y-3 mt-4 text-sm">
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500 dark:text-gray-400">Total Penjualan</span>
-                            <span class="font-semibold text-blue-500" id="finRevenue">Rp 0</span>
+            <!-- Cards Section (Gradients & Shadows) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Card 1: Orders -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 dark:border-gray-700 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                    <div
+                        class="absolute -right-6 -top-6 w-24 h-24 bg-blue-500/10 rounded-full group-hover:scale-150 transition-transform duration-500">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p
+                                class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                Total Pesanan</p>
+                            <h3 class="text-4xl font-bold mt-2 text-slate-800 dark:text-white" id="totalOrders">0</h3>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500 dark:text-gray-400">HPP (Modal Barang) - Est 40%</span>
-                            <span class="font-semibold text-red-400" id="finHpp">- Rp 0</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500 dark:text-gray-400">Biaya Admin TikTok - Est 8%</span>
-                            <span class="font-semibold text-red-400" id="finFee">- Rp 0</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500 dark:text-gray-400">Biaya Operasional - Est 5%</span>
-                            <span class="font-semibold text-red-400" id="finOps">- Rp 0</span>
+                        <div class="p-3 bg-blue-50 dark:bg-blue-500/20 text-blue-600 rounded-xl">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
                         </div>
                     </div>
                 </div>
 
-                <div class="border-t border-dashed dark:border-gray-700 mt-4 pt-4">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-lg">Laba Bersih</span>
-                        <span class="font-bold text-xl text-green-500" id="finNet">Rp 0</span>
+                <!-- Card 2: Revenue -->
+                <div
+                    class="bg-gradient-to-br from-slate-800 to-black rounded-2xl p-6 shadow-xl border border-slate-700 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-tiktok-pink/20 blur-2xl rounded-full"></div>
+                    <div class="flex justify-between items-start relative z-10">
+                        <div>
+                            <p class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Pendapatan Kotor
+                            </p>
+                            <h3 class="text-3xl font-bold mt-2 text-white" id="totalRevenue">Rp 0</h3>
+                        </div>
+                        <div class="p-3 bg-white/10 text-white rounded-xl backdrop-blur-sm border border-white/10">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Net Profit -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 dark:border-gray-700 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                    <div
+                        class="absolute -right-6 -top-6 w-24 h-24 bg-emerald-500/10 rounded-full group-hover:scale-150 transition-transform duration-500">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p
+                                class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                Est. Laba Bersih</p>
+                            <h3 class="text-4xl font-bold mt-2 text-emerald-500" id="netProfit">Rp 0</h3>
+                        </div>
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-500/20 text-emerald-600 rounded-xl">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Middle Layout: Chart & Finance -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+
+                <!-- Financial Breakdown -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-3xl p-7 shadow-sm border border-slate-100 dark:border-gray-700 lg:col-span-1 flex flex-col">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-lg font-bold">Laporan Laba/Rugi</h2>
+                        <span
+                            class="text-xs font-semibold bg-slate-100 dark:bg-gray-700 px-2 py-1 rounded text-slate-500">Live</span>
+                    </div>
+
+                    <div class="space-y-4 flex-1">
+                        <div
+                            class="p-4 rounded-xl bg-slate-50 dark:bg-gray-900/50 border border-slate-100 dark:border-gray-700">
+                            <div class="flex justify-between items-center text-sm mb-1">
+                                <span class="text-slate-500 dark:text-slate-400">Total Penjualan</span>
+                                <span class="font-bold text-slate-800 dark:text-white" id="finRevenue">Rp 0</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 px-2 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500 flex items-center gap-2"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> HPP (Modal)</span>
+                                <span class="font-medium text-rose-500" id="finHpp">- Rp 0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500 flex items-center gap-2"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Admin TikTok</span>
+                                <span class="font-medium text-rose-500" id="finFee">- Rp 0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500 flex items-center gap-2"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Operasional</span>
+                                <span class="font-medium text-rose-500" id="finOps">- Rp 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-5 border-t border-slate-100 dark:border-gray-700">
+                        <div class="flex justify-between items-end">
+                            <span class="font-semibold text-slate-500">Laba Bersih</span>
+                            <span class="font-black text-2xl text-emerald-500" id="finNet">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-3xl p-7 shadow-sm border border-slate-100 dark:border-gray-700 lg:col-span-2">
+                    <h2 class="text-lg font-bold mb-6">Tren Penjualan Produk</h2>
+                    <div class="relative h-64 w-full">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modern Table -->
             <div
-                class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 lg:col-span-2">
-                <h2 class="text-xl font-bold mb-4">Grafik Penjualan per Produk</h2>
-                <div class="relative h-64 w-full">
-                    <canvas id="salesChart"></canvas>
+                class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-slate-100 dark:border-gray-700 overflow-hidden">
+                <div
+                    class="p-6 border-b border-slate-100 dark:border-gray-700 flex justify-between items-center bg-slate-50/50 dark:bg-gray-800/50">
+                    <h2 class="text-lg font-bold">Riwayat Transaksi Masuk</h2>
+                    <button
+                        class="px-4 py-2 bg-tiktok-pink text-white text-sm font-semibold rounded-lg shadow-lg shadow-tiktok-pink/30 hover:bg-rose-600 transition-colors">
+                        Export CSV
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-slate-400 text-xs uppercase tracking-wider">
+                                <th class="p-5 font-semibold">ID Ref (cp)</th>
+                                <th class="p-5 font-semibold">Produk</th>
+                                <th class="p-5 font-semibold">Harga Jual</th>
+                                <th class="p-5 font-semibold">Est. Laba</th>
+                                <th class="p-5 font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody" class="text-sm">
+                            <!-- Data JS Inject -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-        </div>
-
-        <div
-            class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-            <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                <h2 class="text-xl font-bold">Riwayat Transaksi</h2>
-                <button
-                    class="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">Cetak
-                    Laporan</button>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-400 text-sm">
-                            <th class="p-4 border-b dark:border-gray-700">ID Ref (cp)</th>
-                            <th class="p-4 border-b dark:border-gray-700">Produk</th>
-                            <th class="p-4 border-b dark:border-gray-700">Harga Jual</th>
-                            <th class="p-4 border-b dark:border-gray-700">Laba (Est)</th>
-                            <th class="p-4 border-b dark:border-gray-700">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="orderTableBody">
-                    </tbody>
-                </table>
-            </div>
         </div>
     </main>
 
     <script>
-        // Theme Toggle
+        // --- 1. THEME & CLOCK ---
         const themeToggleBtn = document.getElementById('themeToggle');
         const htmlElement = document.documentElement;
         themeToggleBtn.addEventListener('click', () => htmlElement.classList.toggle('dark'));
 
-        // Variabel Keuangan
-        let metrics = {
-            orders: 0,
-            revenue: 0,
-            hpp: 0,       // Modal Barang
-            adminFee: 0,  // Potongan TikTok
-            opsFee: 0,    // Biaya Operasional (Lakban, bubble wrap, dll)
-            netProfit: 0
-        };
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
+        }, 1000);
 
+        // --- 2. LOGIKA KEUANGAN ---
+        let metrics = { orders: 0, revenue: 0, hpp: 0, adminFee: 0, opsFee: 0, netProfit: 0 };
         const orderTableBody = document.getElementById('orderTableBody');
         const formatRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
 
-        // Chart.js Setup
-        Chart.defaults.color = '#9ca3af';
+        // --- 3. CHART.JS DENGAN DESAIN MODERN ---
+        Chart.defaults.font.family = 'Inter';
+        Chart.defaults.color = '#94a3b8'; // Slate 400
+
         const productSalesCount = { "Skincare": 0, "Kaos": 0, "Lampu LED": 0, "Botol Air": 0 };
         const mockProducts = Object.keys(productSalesCount);
         const ctx = document.getElementById('salesChart').getContext('2d');
+
+        // Gradien untuk batang chart
+        let chartGradient = ctx.createLinearGradient(0, 0, 0, 400);
+        chartGradient.addColorStop(0, '#FE2C55'); // TikTok Pink
+        chartGradient.addColorStop(1, '#25F4EE'); // TikTok Cyan
+
         const salesChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -164,14 +312,24 @@
                 datasets: [{
                     label: 'Terjual',
                     data: Object.values(productSalesCount),
-                    backgroundColor: 'rgba(236, 72, 153, 0.8)',
-                    borderRadius: 4
+                    backgroundColor: chartGradient,
+                    borderRadius: 8,
+                    borderSkipped: false,
+                    barThickness: 30
                 }]
             },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false, drawBorder: false } },
+                    y: { grid: { color: '#f1f5f9', drawBorder: false } }
+                }
+            }
         });
 
-        // Update UI Laporan Keuangan
+        // --- 4. UPDATE UI ---
         function updateFinancialReport() {
             document.getElementById('totalOrders').innerText = metrics.orders;
             document.getElementById('totalRevenue').innerText = formatRupiah(metrics.revenue);
@@ -185,13 +343,11 @@
         }
 
         function addOrder(order) {
-            // Kalkulasi Keuangan (Simulasi)
-            const orderHpp = order.amount * 0.40; // Anggap modal barang 40% dari harga jual
-            const orderFee = order.amount * 0.08; // Admin TikTok 8%
-            const orderOps = order.amount * 0.05; // Operasional 5%
+            const orderHpp = order.amount * 0.40;
+            const orderFee = order.amount * 0.08;
+            const orderOps = order.amount * 0.05;
             const orderNet = order.amount - orderHpp - orderFee - orderOps;
 
-            // Update Metrik Global
             metrics.orders++;
             metrics.revenue += order.amount;
             metrics.hpp += orderHpp;
@@ -201,52 +357,76 @@
 
             updateFinancialReport();
 
-            // Update Tabel (Menggunakan 'cp' sebagai reference ID transaksi)
+            // Desain Baris Tabel Baru
             const row = document.createElement('tr');
-            row.className = 'border-b dark:border-gray-700 animate-fade-in hover:bg-gray-50 dark:hover:bg-gray-800';
+            row.className = 'border-b border-slate-50 dark:border-gray-800 animate-slide-down hover:bg-slate-50 dark:hover:bg-gray-800/50 transition-colors group';
             row.innerHTML = `
-                <td class="p-4 font-mono text-xs text-gray-500">CP-${order.cp}</td>
-                <td class="p-4 font-medium">${order.productName}</td>
-                <td class="p-4">${formatRupiah(order.amount)}</td>
-                <td class="p-4 font-semibold text-green-500">+${formatRupiah(orderNet)}</td>
-                <td class="p-4"><span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Selesai</span></td>
+                <td class="p-5 font-mono text-xs text-slate-400 group-hover:text-tiktok-pink transition-colors">CP-${order.cp}</td>
+                <td class="p-5 font-semibold text-slate-700 dark:text-slate-200">${order.productName}</td>
+                <td class="p-5 text-slate-600 dark:text-slate-300">${formatRupiah(order.amount)}</td>
+                <td class="p-5 font-bold text-emerald-500">+${formatRupiah(orderNet)}</td>
+                <td class="p-5">
+                    <span class="bg-tiktok-cyan/10 text-teal-600 dark:text-tiktok-cyan text-xs px-3 py-1.5 rounded-full font-bold inline-block border border-tiktok-cyan/20">
+                        Masuk
+                    </span>
+                </td>
             `;
             orderTableBody.insertBefore(row, orderTableBody.firstChild);
 
-            // Update Grafik
             productSalesCount[order.productName]++;
             salesChart.data.datasets[0].data = Object.values(productSalesCount);
             salesChart.update();
         }
 
-        // Simulasi Order Masuk
+        // Simulasi Webhook (Interval)
         setInterval(() => {
-            if (Math.random() > 0.5) {
+            if (Math.random() > 0.4) {
                 const newOrder = {
-                    cp: Math.floor(100000 + Math.random() * 900000), // Identifier transaksi
+                    cp: Math.floor(100000 + Math.random() * 900000), // Identifier CP
                     productName: mockProducts[Math.floor(Math.random() * mockProducts.length)],
                     amount: Math.floor(50000 + Math.random() * 150000)
                 };
                 addOrder(newOrder);
             }
-        }, 3000); 
+        }, 2500); 
     </script>
 
     <style>
-        @keyframes fadeIn {
+        /* Animasi mulus tabel ala aplikasi Native */
+        @keyframes slideDown {
             0% {
                 opacity: 0;
-                background-color: rgba(59, 130, 246, 0.2);
+                transform: translateY(-10px) scale(0.98);
+                background-color: rgba(254, 44, 85, 0.05);
             }
 
             100% {
                 opacity: 1;
+                transform: translateY(0) scale(1);
                 background-color: transparent;
             }
         }
 
-        .animate-fade-in {
-            animation: fadeIn 1s ease-out forwards;
+        .animate-slide-down {
+            animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Kustomisasi Scrollbar agar rapi */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
         }
     </style>
 </body>
